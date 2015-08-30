@@ -1,0 +1,13 @@
+<p>Welcome to Tachyon</p>
+{% block title %}Register Your Company{% endblock %}
+
+{% block content %}
+  <h1>Create an admin account</h1>
+
+  <form action="" method="post"> {% csrf_token %}
+      {{ user.as_p }}
+      {{ company.as_p }}
+      <input type="submit" value="Create the account">
+  </form>
+{% endblock %}
+<p>Powered by Tachyon Systems</p>

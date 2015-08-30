@@ -1,0 +1,13 @@
+{% if details %}
+    <ul>
+        <li><a href="/delivery/{{ details.id }}/">{{ details.id }}
+        {{ details.submit_time }}{{ details.client_id }}
+        {{ details.pick_company }}{{pick_name }}{{pick_address }}
+        {{ details.pick_phone }}{{ details.pick_email }}
+        {{ details.drop_company }}{{ details.drop_name }}
+        {{ details.drop_address }}{{ details.drop_phone }}
+        {{ details.drop_email }}{{ details.instructions }}</a></li>
+    </ul>
+{% else %}
+    <p>Not available.</p>
+{% endif %}

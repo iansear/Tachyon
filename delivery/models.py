@@ -22,36 +22,43 @@ class Job(models.Model):
     quantity = models.IntegerField()
     weight = models.DecimalField(max_digits=12, decimal_places=2)
     zones = models.IntegerField()
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     submit_time = models.DateTimeField(auto_now=False, auto_now_add=True)
-    claim_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True)
-    pick_datetime = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True)
-    pick_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True)
-    drop_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True)
+    claim_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    pick_datetime = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    pick_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
+    drop_time = models.DateTimeField(auto_now=False, auto_now_add=False, blank=True, null=True)
     pod = models.CharField(max_length=100, blank=True)
     notes = models.TextField(blank=True)
     job_status = models.CharField(max_length=20)
     payment_status = models.BooleanField()
     billing_status = models.BooleanField()
 
+    def __str__(self):
+        return str(self.id)
+
 class Company(models.Model):
     name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     email = models.EmailField(max_length=254)
-    rate = models.DecimalField(max_digits=5, decimal_places=2)
+    rate = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 class Client(models.Model):
     company = models.ForeignKey('Company')
     email = models.EmailField(max_length=254)
-    password = models.CharField(max_length=200)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.email
+
 class Courier(models.Model):
     companies = models.ManyToManyField('Company')
     email = models.EmailField(max_length=254)
-    password = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
     alias = models.CharField(max_length=50)
     first_name = models.CharField(max_length=200)
@@ -59,6 +66,9 @@ class Courier(models.Model):
     phone = models.CharField(max_length=20)
     role = models.CharField(max_length=10)
     is_working = models.BooleanField()
+
+    def __str__(self):
+        return self.alias
 
 class Price(models.Model):
     company = models.ForeignKey('Company')
@@ -75,4 +85,7 @@ class Price(models.Model):
     start_time = models.TimeField(auto_now=False, auto_now_add=False, blank=True)
     end_time = models.TimeField(auto_now=False, auto_now_add=False, blank=True)
     pm_afterhours = models.TimeField(auto_now=False, auto_now_add=False, blank=True)
+
+    def __str__(self):
+        return self.company
 

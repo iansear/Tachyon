@@ -1,0 +1,14 @@
+<p>Job Board</p>
+{% if jobs %}
+    <ul>
+    {% for job in jobs %}
+        <li><a href="/delivery/{{ job.id }}/">{{ job.id }}
+        {{ job.client.first_name }}{{ job.client.last_name }}
+        {{ job.submit_time }}{{ job.pick_address }}
+        {{ job.drop_address }}{{ job.job_status }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No jobs are available.</p>
+{% endif %}
+<p>Powered by Tachyon Systems</p>
