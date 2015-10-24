@@ -20,4 +20,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^delivery/', include('delivery.urls')),
     url(r'^company/', include('company.urls')),
+    url(r'^client/', include('client.urls')),
+    url(r'^tachyoncouriersystems/', include('tachyoncouriersystems.urls')),
 ]

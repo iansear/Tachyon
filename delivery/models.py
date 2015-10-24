@@ -1,10 +1,11 @@
-from __future__ import unicode_literals
+from django.conf import settings
 from django.db import models
 
 class Job(models.Model):
     company = models.ForeignKey('Company')
     client = models.ForeignKey('Client')
     courier = models.ForeignKey('Courier')
+    round_trip = models.BooleanField()
     time_frame = models.DurationField()
     pick_company = models.CharField(max_length=100)
     pick_name = models.CharField(max_length=100)
@@ -58,14 +59,11 @@ class Client(models.Model):
 
 class Courier(models.Model):
     companies = models.ManyToManyField('Company')
-    email = models.EmailField(max_length=254)
-    phone = models.CharField(max_length=20)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='user')
     alias = models.CharField(max_length=50)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
     phone = models.CharField(max_length=20)
-    role = models.CharField(max_length=10)
-    is_working = models.BooleanField()
+    role = models.CharField(max_length=10, null=True)
+    is_working = models.NullBooleanField()
 
     def __str__(self):
         return self.alias

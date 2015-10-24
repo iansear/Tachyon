@@ -1,13 +1,19 @@
 {% if details %}
-    <ul>
-        <li><a href="/delivery/{{ details.id }}/">{{ details.id }}
-        {{ details.submit_time }}{{ details.client_id }}
-        {{ details.pick_company }}{{pick_name }}{{pick_address }}
-        {{ details.pick_phone }}{{ details.pick_email }}
-        {{ details.drop_company }}{{ details.drop_name }}
-        {{ details.drop_address }}{{ details.drop_phone }}
-        {{ details.drop_email }}{{ details.instructions }}</a></li>
-    </ul>
+    {{ details.id }}</br>
+    {{ details.submit_time }}</br>
+    {{ details.client.first_name }}
+    {{ details.client.last_name }}</br>
+    {{ details.pick_company }}</br>
+    {{ details.pick_name }}</br>
+    {{ details.pick_address }}</br>
+    {{ details.pick_phone }}</br>
+    {{ details.pick_email }}</br>
+    {{ details.drop_company }}</br>
+    {{ details.drop_name }}</br>
+    {{ details.drop_address }}</br>
+    {{ details.drop_phone }}</br>
+    {{ details.drop_email }}</br>
+    {{ details.instructions }}</br>
 {% else %}
     <p>Not available.</p>
 {% endif %}

@@ -1,13 +1,37 @@
+{% if company %}
+    {% for c in company %}
+            {{ c }}{% csrf_token %}
+    {% endfor %}
+{% endif %}
+: Welcome 
+{% if courier %}
+    {% for c in courier %}
+        {{ c }}{% csrf_token %}
+    {% endfor %}
+{% endif %}
 <p>Job Board</p>
 {% if jobs %}
-    <ul>
-    {% for job in jobs %}
-        <li><a href="/delivery/{{ job.id }}/">{{ job.id }}
-        {{ job.client.first_name }}{{ job.client.last_name }}
-        {{ job.submit_time }}{{ job.pick_address }}
-        {{ job.drop_address }}{{ job.job_status }}</a></li>
-    {% endfor %}
-    </ul>
+    <table border="1">
+        <tr>
+            <th>Job ID</th>
+            <th>Client Name</th>
+            <th>Submit Time</th>
+            <th>Pickup Address</th>
+            <th>Dropoff Address</th>
+            <th>Status</th>
+            <th>Assigned Courier</th>
+        {% for job in jobs %}
+            <tr>
+                <td><a href="/delivery/{{ job.id }}/">{% csrf_token %}{{ job.id }}</a></td>
+                <td>{{ job.client.first_name }} {{ job.client.last_name }}</td>
+                <td>{{ job.submit_time }}</td>
+                <td>{{ job.pick_address }}</td>
+                <td>{{ job.drop_address }}</td>
+                <td>{{ job.job_status }}</td>
+                <td>{{ job.courier.alias }}</td>
+            <tr>
+        {% endfor %}
+    </table>
 {% else %}
     <p>No jobs are available.</p>
 {% endif %}
