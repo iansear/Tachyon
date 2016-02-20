@@ -6,9 +6,6 @@ from .forms import RegisterCompanyForm
 from .forms import RegisterCourierForm
 from .forms import RegisterUserForm
 
-def index(request):
-    return render(request, 'company/index.html')
-
 def loginuser(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -30,10 +27,12 @@ def registercompany(request):
         if user.is_valid() and company.is_valid:
             newuser = user.save()
             newcompany = company.save()
-            newcourier = courier.save()
+            newcourier = courier.save(commit=False)
+            newcourier.user = newuser
+            newcourier.save()
             newuser.groups.add(Group.objects.get(name='CompanyAdmin'))
             newcourier.companies.add(newcompany)
-            return redirect(request, '/company/login')
+            return redirect('/company/login')
     else:
         user = RegisterUserForm()
         company = RegisterCompanyForm()

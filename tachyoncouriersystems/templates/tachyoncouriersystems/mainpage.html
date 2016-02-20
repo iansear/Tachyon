@@ -1,6 +1,18 @@
 <h1>Welcom to Tachyon Courier Systems</h1>
 <p>Made by couriers for couriers<p>
-<a href="/company/login/">Login</a>
+
+<a href="/company/login/">Client Login</a>
+
+<p>Are you looking for a courier company? Sign up with one of the companies below:</p>
+<ul>
+    
+    {% for company in companies %}
+        <li> <a href="/client/registerclient/{{ company.id }}/">{{ company.name }}</a>
+        {{ company.email }} {{ company.phone }}</li>
+    {% endfor %}
+     
+</ul>
+<a href="/company/login/">Employee Login</a>
 <p>Have clients and need a solid platform that:</p>
 <ul>
     <li>Is customizable</li>
@@ -13,9 +25,5 @@
 </ul>
 <ul>
     <li><a href="/company/registercompany/">Register your company here!</a></li>
-</ul>
-<p>Are you looking for a courier company?</p>
-<ul>
-    <li>Here's a list of the companies using Tachyon</li>
 </ul>
 <p>Powered by Tachyon Systems</p>

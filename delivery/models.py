@@ -49,17 +49,16 @@ class Company(models.Model):
 
 class Client(models.Model):
     company = models.ForeignKey('Company')
-    email = models.EmailField(max_length=254)
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
+    user = models.OneToOneField('auth.User')
+    alias = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.email
+        return self.alias
 
 class Courier(models.Model):
     companies = models.ManyToManyField('Company')
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='user')
+    user = models.OneToOneField('auth.User')
     alias = models.CharField(max_length=50)
     phone = models.CharField(max_length=20)
     role = models.CharField(max_length=10, null=True)
