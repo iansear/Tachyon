@@ -11,11 +11,12 @@ def loginuser(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        
         if user is not None:
             if user.is_active:
                 login(request, user)
-                request.session["user_id"] = user.id
-                return redirect('/delivery/jobboard')
+                request.session['user_id'] = user.id
+                return redirect('/delivery/jobboard/')
 
     return render(request, 'company/login.html')
 
@@ -24,15 +25,21 @@ def registercompany(request):
         user = RegisterUserForm(request.POST)
         company = RegisterCompanyForm(request.POST)
         courier = RegisterCourierForm(request.POST)
-        if user.is_valid() and company.is_valid:
-            newuser = user.save()
-            newcompany = company.save()
-            newcourier = courier.save(commit=False)
-            newcourier.user = newuser
-            newcourier.save()
-            newuser.groups.add(Group.objects.get(name='CompanyAdmin'))
-            newcourier.companies.add(newcompany)
-            return redirect('/company/login')
+
+        try:
+            if user.is_valid() and company.is_valid:
+                newuser = user.save()
+                newcompany = company.save()
+                newcourier = courier.save(commit=False)
+                newcourier.user = newuser
+                newcourier.save()
+                newuser.groups.add(Group.objects.get(name='CompanyAdmin'))
+                newcourier.companies.add(newcompany)
+                return redirect('/company/login/')
+
+        except ValueError:
+            pass
+            
     else:
         user = RegisterUserForm()
         company = RegisterCompanyForm()

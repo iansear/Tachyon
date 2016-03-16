@@ -9,10 +9,10 @@ def index(request):
 
 @login_required()
 def jobboard(request):
-    user_id = request.session["user_id"]
-    courier = Courier.objects.filter(user=user_id)
-    company = Company.objects.filter(courier=courier)
-    jobs = Job.objects.filter(company=company)
+    user_id = request.session['user_id']
+    courier = Courier.objects.filter(user = user_id)
+    company = Company.objects.filter(courier = courier)
+    jobs = Job.objects.filter(company = company)
     context = {'jobs': jobs, 'user_id': user_id, 'courier': courier,
                'company': company}
     return render(request, 'delivery/jobboard.html', context)
