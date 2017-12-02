@@ -87,6 +87,7 @@ def viewstatus(request):
     user_id = request.session['user_id']
     client = Client.objects.filter(user = user_id)
     jobs = Job.objects.filter(client = client)
+    #jobs = Job.objects.filter(status = 'COMPLETE') 
     context = {'jobs': jobs}
     return render(request, 'client/viewstatus.html', context)
 
@@ -97,5 +98,7 @@ def viewhistory(request):
     jobs = Job.objects.filter(client = client)
     jobs = Job.objects.filter(status = 'COMPLETE')  
     context = {'jobs': jobs}
-    return render(request, 'client/viewstatus.html', context)
+    return render(request, 'client/viewhistory.html', context)
+
+
     

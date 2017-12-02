@@ -1,7 +1,12 @@
 <h1>Job Status</h1>
-<ul>
-    
-    {% for job in jobs %}
+{% if jobs %}
+    <table border="1">
+        <tr>
+            <th>Dropoff Address</th>
+            <th>Dropoff Company</th>
+            <th>Job Status</th>
+            <th>Courier</th>
+        {% for job in jobs %}
             <tr>
                 <td><a href="/delivery/{{ job.id }}/">{% csrf_token %}{{ job.id }}</a></td>
                 <td>{{ job.drop_address }}</td>
@@ -10,6 +15,9 @@
                 <td>{{ job.courier.alias }}</td>
             <tr>
         {% endfor %}
-        <td><a href="/client/homepage/">{% csrf_token %}back</a></td>
-     
-</ul>
+    </table>
+{% else %}
+    <p>No jobs are available.</p>
+{% endif %}
+<a href="/client/homepage/">{% csrf_token %}back</a>
+<p>Powered by Tachyon Systems</p>
