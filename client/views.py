@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import Group
 from delivery.models import Company
 from delivery.models import Client
+from delivery.models import Job
 from .forms import RegisterUserForm
 from .forms import RegisterClientForm
 from .forms import PlaceJobForm
@@ -77,15 +78,24 @@ def placejob(request):
                 
     else:
         job = PlaceJobForm()
-
+    
     context = {'job': job}
     return render(request, 'client/placejob.html', context)
 
 @login_required()
 def viewstatus(request):
-    return render(request, 'client/viewstatus.html')
+    user_id = request.session['user_id']
+    client = Client.objects.filter(user = user_id)
+    jobs = Job.objects.filter(client = client)
+    context = {'jobs': jobs}
+    return render(request, 'client/viewstatus.html', context)
 
 @login_required()
 def viewhistory(request):
-    return render(request, 'client/viewhistory.html')
+    user_id = request.session['user_id']
+    client = Client.objects.filter(user = user_id)
+    jobs = Job.objects.filter(client = client)
+    jobs = Job.objects.filter(status = 'COMPLETE')  
+    context = {'jobs': jobs}
+    return render(request, 'client/viewstatus.html', context)
     
