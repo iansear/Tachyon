@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^company/', include('company.urls')),
     url(r'^client/', include('client.urls')),
     url(r'^tachyoncouriersystems/', include('tachyoncouriersystems.urls')),
+    url(r'^accounts/', include('accounts.urls')),
 ]

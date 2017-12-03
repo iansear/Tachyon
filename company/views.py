@@ -50,3 +50,13 @@ def registercompany(request):
 
 def admin(request):
     return render(request, 'company/admin.html')
+
+def assigncourier(request):
+    return render(request, 'delivery/jobboard')
+
+def canceljob(request):
+    return render(request, 'delivery/jobboard')
+
+def registercourier(request):
+    return render(request, 'delivery/jobboard')
+

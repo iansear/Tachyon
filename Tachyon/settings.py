@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'delivery',
     'tachyoncouriersystems',
+    'accounts',
+    'client',
+    'company',
 ]
 
 MIDDLEWARE_CLASSES = [

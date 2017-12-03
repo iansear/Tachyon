@@ -1,7 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 from django.shortcuts import render
-from django.contrib.auth import logout
 from .models import Courier
 from .models import Company
 from .models import Job
@@ -25,7 +23,3 @@ def jobdetails(request, job_id):
     context = {'details': details}
     return render(request, 'delivery/jobdetails.html', context)
 
-@login_required()
-def logoutuser(request):
-    logout(request)
-    return redirect('/client/login/')
