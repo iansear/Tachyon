@@ -1,14 +1,13 @@
-{% if company %}
-    {% for c in company %}
-            {{ c }}{% csrf_token %}
-    {% endfor %}
-{% endif %}
-: Welcome 
-{% if courier %}
-    {% for c in courier %}
-        {{ c }}{% csrf_token %}
-    {% endfor %}
-{% endif %}
+<h1>
+{% for c in company %}
+    {{ c }}{% csrf_token %}
+{% endfor %}
+: Welcome
+{% for c in courier %}
+    {{ c }}{% csrf_token %}
+{% endfor %}
+</h1>
+<a href="/company/registercourier/">Hire Courier</a><br>
 <p>Job Board</p>
 {% if jobs %}
     <table border="1">
@@ -28,7 +27,11 @@
                 <td>{{ job.pick_address }}</td>
                 <td>{{ job.drop_address }}</td>
                 <td>{{ job.status }}</td>
-                <td>{{ job.courier.alias }}</td>
+                <td><select>
+                        {% for r in riders %}
+                            <option value = "{{ r }}">{{ r }}</option>
+                        {% endfor %}
+                    </select></td>
             <tr>
         {% endfor %}
     </table>

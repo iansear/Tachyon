@@ -13,8 +13,9 @@ def jobboard(request):
     courier = Courier.objects.filter(user = user_id)
     company = Company.objects.filter(courier = courier)
     jobs = Job.objects.filter(company = company)
+    riders = Courier.objects.filter(companies = company)
     context = {'jobs': jobs, 'user_id': user_id, 'courier': courier,
-               'company': company}
+               'company': company, 'riders': riders}
     return render(request, 'delivery/jobboard.html', context)
 
 @login_required()

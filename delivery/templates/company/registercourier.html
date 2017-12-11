@@ -1,0 +1,9 @@
+<h1>Hire Courier</h1>
+{% block content %}
+  <form action="" method="post"> {% csrf_token %}
+      {{ user.as_p }}
+      {{ courier.as_p }}
+      <input type="submit" value="Create the account">
+  </form>
+{% endblock %}
+<p>Powered by Tachyon Systems</p>

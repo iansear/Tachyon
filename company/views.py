@@ -5,6 +5,8 @@ from django.contrib.auth.models import Group
 from .forms import RegisterCompanyForm
 from .forms import RegisterCourierForm
 from .forms import RegisterUserForm
+from delivery.models import Courier
+from delivery.models import Company
 
 def loginuser(request):
     if request.method == 'POST':
@@ -58,5 +60,35 @@ def canceljob(request):
     return render(request, 'delivery/jobboard')
 
 def registercourier(request):
-    return render(request, 'delivery/jobboard')
+    if request.method == 'POST':
+        user_id = request.session['user_id']
+        user = Courier.objects.filter(user = user_id)
+        company = Company.objects.filter(courier = user)
+        userform = RegisterUserForm(request.POST)
+        courierform = RegisterCourierForm(request.POST)
+
+        try:
+            if userform.is_valid() and courierform.is_valid():
+                newuser = userform.save()
+                newcourier = courierform.save(commit=False)
+                newcourier.user = newuser
+                newcourier.save()
+                newuser.groups.add(Group.objects.get(name='Courier'))
+                for c in company:
+                    print c
+                    print 'if'
+                    newcourier.companies.add(c)
+                return redirect('/delivery/jobboard/')
+
+        except ValueError:
+            pass
+            
+    else:
+        userform = RegisterUserForm()
+        courierform = RegisterCourierForm()
+        
+    context = {'user': userform, 'courier': courierform}
+    print 'else'
+    return render(request, 'company/registercompany.html', context)
+    
 
