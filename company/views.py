@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 from .forms import RegisterCompanyForm
 from .forms import RegisterCourierForm
 from .forms import RegisterUserForm
+#from .forms import AssignCourierForm
 from delivery.models import Courier
 from delivery.models import Company
 
@@ -54,6 +55,16 @@ def admin(request):
     return render(request, 'company/admin.html')
 
 def assigncourier(request):
+#    if request.method == 'POST':
+#        assigncourierform = AssignCourierForm(request.POST)
+#        if assigncourierform.is_valid():
+#            courier = assigncourierform.save()
+#            return render(request, 'delivery/jobboard')
+#    else:
+#        assigncourierform = AssignCourierForm()
+
+#    context = {'assigncourier': assigncourierform}
+#    return render(request, 'delivery/jobboard', context)
     return render(request, 'delivery/jobboard')
 
 def canceljob(request):
@@ -75,8 +86,6 @@ def registercourier(request):
                 newcourier.save()
                 newuser.groups.add(Group.objects.get(name='Courier'))
                 for c in company:
-                    print c
-                    print 'if'
                     newcourier.companies.add(c)
                 return redirect('/delivery/jobboard/')
 
@@ -88,7 +97,6 @@ def registercourier(request):
         courierform = RegisterCourierForm()
         
     context = {'user': userform, 'courier': courierform}
-    print 'else'
     return render(request, 'company/registercompany.html', context)
     
 

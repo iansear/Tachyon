@@ -40,4 +40,14 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
-        
+#class AssignCourierForm(ModelForm):
+
+#    user_id = request.session['user_id']
+#    courier = Courier.objects.filter(user = user_id)
+#    company = Company.objects.filter(courier = courier)
+#    courierlist = form.ModelCoiceField(
+#        queryset = Courier.objects.filter(companies = company))
+
+#    class Meta:
+#        model = Job
+#        fields = ['courier']

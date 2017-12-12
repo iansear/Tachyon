@@ -7,7 +7,11 @@
     {{ c }}{% csrf_token %}
 {% endfor %}
 </h1>
+Logout<br>
 <a href="/company/registercourier/">Hire Courier</a><br>
+List Couriers<br>
+List Clients<br>
+
 <p>Job Board</p>
 {% if jobs %}
     <table border="1">
@@ -31,11 +35,21 @@
                         {% for r in riders %}
                             <option value = "{{ r }}">{{ r }}</option>
                         {% endfor %}
-                    </select></td>
+                    </select><button type="button">ASSIGN</button></td>
             <tr>
         {% endfor %}
     </table>
 {% else %}
     <p>No jobs are available.</p>
 {% endif %}
+
+<form method="get">
+  <select>
+    {% for rider in riders %}
+        <option value = "{{ rider }}">{{ rider }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit" formmethod="post">Assign</button>
+</form> 
+
 <p>Powered by Tachyon Systems</p>
