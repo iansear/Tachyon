@@ -2,9 +2,11 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django.forms import CharField
+from django.forms import ModelChoiceField
 from django.forms import PasswordInput
 from delivery.models import Courier
 from delivery.models import Company
+from delivery.models import Job
 
 class RegisterCourierForm(ModelForm):
 
@@ -40,14 +42,22 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
-#class AssignCourierForm(ModelForm):
+class AssignCourierForm(ModelForm):
 
-#    user_id = request.session['user_id']
-#    courier = Courier.objects.filter(user = user_id)
-#    company = Company.objects.filter(courier = courier)
-#    courierlist = form.ModelCoiceField(
-#        queryset = Courier.objects.filter(companies = company))
+    def __init__(self, user_id):
+        self.user_id = user_id
+        courier = Courier.objects.filter(user = user_id)
+        company = Company.objects.filter(courier = courier)
+        queryset = Courier.objects.filter(companies = company)
+        super(AssignCourierForm, self).__init__(user_id)
+        self.fields['courier'].queryset = queryset
+        print 'yerrrrrrrr!!!!!!!!'
 
-#    class Meta:
-#        model = Job
-#        fields = ['courier']
+    def roster(self):
+        courier = Courier.objects.filter(user = user_id)
+        company = Company.objects.filter(courier = courier)
+        roster = ModelChoiceField(queryset = Courier.objects.filter(companies = company), empty_label="(------)")
+
+    class Meta:
+        model = Job
+        fields = ['courier']

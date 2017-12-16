@@ -55,17 +55,18 @@ def admin(request):
     return render(request, 'company/admin.html')
 
 def assigncourier(request):
-#    if request.method == 'POST':
-#        assigncourierform = AssignCourierForm(request.POST)
-#        if assigncourierform.is_valid():
-#            courier = assigncourierform.save()
-#            return render(request, 'delivery/jobboard')
-#    else:
-#        assigncourierform = AssignCourierForm()
+    if request.method == 'POST':
+        assigncourierform = AssignCourierForm(request.POST)
+        if assigncourierform.is_valid():
+            courier = assigncourierform.save()
+            return render(request, 'delivery/jobboard')
+    else:
+        user_id = request.session['user_id']
+        assigncourierform = AssignCourierForm(user_id)
 
-#    context = {'assigncourier': assigncourierform}
-#    return render(request, 'delivery/jobboard', context)
-    return render(request, 'delivery/jobboard')
+    context = {'assigncourier': assigncourierform}
+    return render(request, 'delivery/jobboard', context)
+#    return render(request, 'delivery/jobboard')
 
 def canceljob(request):
     return render(request, 'delivery/jobboard')

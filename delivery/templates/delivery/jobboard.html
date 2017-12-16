@@ -42,14 +42,12 @@ List Clients<br>
 {% else %}
     <p>No jobs are available.</p>
 {% endif %}
-
-<form method="get">
-  <select>
-    {% for rider in riders %}
-        <option value = "{{ rider }}">{{ rider }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit" formmethod="post">Assign</button>
-</form> 
+TESTIES
+{% block content %}
+<form action="" method="post"> {% csrf_token %}
+    {{ assigncourier }}
+    <input type="submit" value="ASSIGN">
+</form>
+{% endblock %}
 
 <p>Powered by Tachyon Systems</p>
