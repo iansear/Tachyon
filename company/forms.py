@@ -45,18 +45,17 @@ class RegisterUserForm(UserCreationForm):
 class AssignCourierForm(ModelForm):
 
     def __init__(self, user_id):
+        print 'init'
         self.user_id = user_id
         courier = Courier.objects.filter(user = user_id)
         company = Company.objects.filter(courier = courier)
-        queryset = Courier.objects.filter(companies = company)
         super(AssignCourierForm, self).__init__(user_id)
-        self.fields['courier'].queryset = queryset
-        print 'yerrrrrrrr!!!!!!!!'
+        self.fields['alias'].queryset = Courier.objects.filter(companies = company)
+        print 'exit init'
 
-    def roster(self):
-        courier = Courier.objects.filter(user = user_id)
-        company = Company.objects.filter(courier = courier)
-        roster = ModelChoiceField(queryset = Courier.objects.filter(companies = company), empty_label="(------)")
+    print 'class'
+    roster = ModelChoiceField(queryset = None, empty_label="(------)")
+    print 'roster'
 
     class Meta:
         model = Job

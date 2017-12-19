@@ -55,12 +55,15 @@ def admin(request):
     return render(request, 'company/admin.html')
 
 def assigncourier(request):
+    print 'assigncourier'
     if request.method == 'POST':
+        print 'if'
         assigncourierform = AssignCourierForm(request.POST)
         if assigncourierform.is_valid():
             courier = assigncourierform.save()
             return render(request, 'delivery/jobboard')
     else:
+        print 'else'
         user_id = request.session['user_id']
         assigncourierform = AssignCourierForm(user_id)
 
