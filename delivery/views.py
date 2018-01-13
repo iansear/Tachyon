@@ -24,3 +24,4 @@ def jobdetails(request, job_id):
     context = {'details': details}
     return render(request, 'delivery/jobdetails.html', context)
 
+

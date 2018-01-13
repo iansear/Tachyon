@@ -31,18 +31,24 @@ List Clients<br>
                 <td>{{ job.pick_address }}</td>
                 <td>{{ job.drop_address }}</td>
                 <td>{{ job.status }}</td>
-                <td><select>
-                        {% for r in riders %}
-                            <option value = "{{ r }}">{{ r }}</option>
-                        {% endfor %}
-                    </select><button type="button">ASSIGN</button></td>
+                <td>{{ job.courier }}</td>
             <tr>
         {% endfor %}
     </table>
 {% else %}
     <p>No jobs are available.</p>
 {% endif %}
-<p>TESTIES</p>
+<p>RIDERS</p>
+
+<form action="" method="post"> {% csrf_token %}
+    <select>
+        <option value = "-------">-------</option>
+        {% for r in riders %}
+            <option>{{ r }}</option>
+        {% endfor %}
+    <input type="submit" formaction="assigncourier.html" value="ASSIGN">
+</form>
+<p>FORM TEST</p>
 {% block content %}
 <form action="" method="post"> {% csrf_token %}
     {{ assigncourier }}

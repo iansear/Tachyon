@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms import Form
 from django.forms import ModelForm
 from django.forms import CharField
 from django.forms import ModelChoiceField
@@ -42,20 +43,18 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
-class AssignCourierForm(ModelForm):
+#fix me!!
+class AssignCourierForm(Form):
+    courier = ModelChoiceField(queryset=None)
 
-    def __init__(self, user_id):
-        print 'init'
-        self.user_id = user_id
-        courier = Courier.objects.filter(user = user_id)
-        company = Company.objects.filter(courier = courier)
+    def __init__(self):
+        #self.user_id = user_id
+        #courier = Courier.objects.filter(user = user_id)
+        #company = Company.objects.filter(courier = courier)
         super(AssignCourierForm, self).__init__(user_id)
-        self.fields['alias'].queryset = Courier.objects.filter(companies = company)
-        print 'exit init'
+        self.fields['courier'].queryset = Courier.objects.all()
 
-    print 'class'
-    roster = ModelChoiceField(queryset = None, empty_label="(------)")
-    print 'roster'
+    #roster = ModelChoiceField(queryset = None, empty_label="(------)")
 
     class Meta:
         model = Job
