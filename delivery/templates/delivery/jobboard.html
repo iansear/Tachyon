@@ -7,9 +7,9 @@
     {{ c }}{% csrf_token %}
 {% endfor %}
 </h1>
-Logout<br>
+<a href="/accounts/logoutuser/">Logout</a><br>
 <a href="/company/registercourier/">Hire Courier</a><br>
-List Couriers<br>
+<a href="/company/listcouriers/">List Couriers</a><br>
 List Clients<br>
 
 <p>Job Board</p>
@@ -31,7 +31,8 @@ List Clients<br>
                 <td>{{ job.pick_address }}</td>
                 <td>{{ job.drop_address }}</td>
                 <td>{{ job.status }}</td>
-                <td>{{ job.courier }}</td>
+                <td>{{ job.courier }}
+                    <a href="/company/assigncourier/">ASSIGN</a></td>
             <tr>
         {% endfor %}
     </table>

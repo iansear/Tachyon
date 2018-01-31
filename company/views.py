@@ -5,7 +5,6 @@ from django.contrib.auth.models import Group
 from .forms import RegisterCompanyForm
 from .forms import RegisterCourierForm
 from .forms import RegisterUserForm
-from .forms import AssignCourierForm
 from delivery.models import Courier
 from delivery.models import Company
 
@@ -85,17 +84,36 @@ def registercourier(request):
         
     context = {'user': userform, 'courier': courierform}
     return render(request, 'company/registercompany.html', context)
-    
+
+#Needs Work    
 def assigncourier(request):
     if request.method == 'POST':
-        assigncourierform = AssignCourierForm(request.POST)
-        return render(request, 'delivery/jobboard')
-    else:
-        #user_id = request.session['user_id']
-        #courier = Courier.objects.filter(user = user_id)
-        #company = Company.objects.filter(courier = courier)
-        #roster = Courier.objects.filter(companies = company)
-        assigncourier = AssignCourierForm()
 
-    context = {'assigncourier': assigncourier}
-    return render(request, 'delivery/jobboard', context)
+        try:
+            
+            return redirect('/delivery/jobboard/')
+
+        except ValueError:
+            pass
+        
+    else:
+        user_id = request.session['user_id']
+        courier = Courier.objects.filter(user = user_id)
+        company = Company.objects.filter(courier = courier)
+        roster = Courier.objects.filter(companies = company)
+
+    context = {'roster': roster}
+    return render(request, 'company/assigncourier.html', context)
+
+def listcouriers(request):
+    user_id = request.session['user_id']
+    courier = Courier.objects.filter(user = user_id)
+    company = Company.objects.filter(courier = courier)
+    roster = Courier.objects.filter(companies = company)
+    context = {'roster': roster}
+    return render(request, 'company/listcouriers.html', context)
+
+def courierdetails(request, courier_id):
+    details = Courier.objects.get(pk = courier_id)
+    context = {'details': details}
+    return render(request, 'company/courierdetails.html', context)

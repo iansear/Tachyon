@@ -1,0 +1,4 @@
+{% for r in roster %}
+    <a href="/company/{{ r.id }}/">{% csrf_token %}{{ r.id }}</a>
+    {{ r.alias }}</br>{% csrf_token %}
+{% endfor %}

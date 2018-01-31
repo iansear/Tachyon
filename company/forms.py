@@ -43,7 +43,7 @@ class RegisterUserForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
 
-#fix me!!
+#fix me!! UNUSED
 class AssignCourierForm(Form):
     courier = ModelChoiceField(queryset=None)
 
@@ -53,8 +53,6 @@ class AssignCourierForm(Form):
         #company = Company.objects.filter(courier = courier)
         super(AssignCourierForm, self).__init__(user_id)
         self.fields['courier'].queryset = Courier.objects.all()
-
-    #roster = ModelChoiceField(queryset = None, empty_label="(------)")
 
     class Meta:
         model = Job
