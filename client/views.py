@@ -8,7 +8,7 @@ from delivery.models import Client
 from delivery.models import Job
 from .forms import RegisterUserForm
 from .forms import RegisterClientForm
-from .forms import PlaceJobForm
+from delivery.forms import PlaceJobForm
 
 def registerclient(request, company_id):
     company = Company.objects.get(pk = company_id)

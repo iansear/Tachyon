@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^assigncourier/$', views.assigncourier, name='assigncourier'),
     url(r'^listcouriers/$', views.listcouriers, name='listcouriers'),
     url(r'^(?P<courier_id>[0-9]+)/$', views.courierdetails, name='courierdetails'),
+    url(r'^placejob/$', views.placejob, name='placejob'),
 ]

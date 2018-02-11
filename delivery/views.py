@@ -3,6 +3,7 @@ from django.shortcuts import render
 from .models import Courier
 from .models import Company
 from .models import Job
+from .forms import PlaceJobForm
 
 def index(request):
     return render(request, 'delivery/index.html')
@@ -23,5 +24,3 @@ def jobdetails(request, job_id):
     details = Job.objects.get(pk = job_id)
     context = {'details': details}
     return render(request, 'delivery/jobdetails.html', context)
-
-

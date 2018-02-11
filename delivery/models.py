@@ -3,7 +3,7 @@ from django.db import models
 
 class Job(models.Model):
     company = models.ForeignKey('Company')
-    client = models.ForeignKey('Client')
+    client = models.ForeignKey('Client', null=True)
     courier = models.ForeignKey('Courier', null=True)
     round_trip = models.BooleanField(default = False)
     time_frame = models.IntegerField(blank=True, null=True)

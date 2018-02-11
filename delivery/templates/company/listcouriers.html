@@ -1,4 +1,16 @@
-{% for r in roster %}
-    <a href="/company/{{ r.id }}/">{% csrf_token %}{{ r.id }}</a>
-    {{ r.alias }}</br>{% csrf_token %}
-{% endfor %}
+Employee List</br>
+{% if roster %}
+    <table border="1">
+        <tr>
+            <th>Courier Number</th>
+            <th>Alias</th>
+        {% for r in roster %}
+            <tr>
+                <td><a href="/company/{{ r.id }}/">{% csrf_token %}{{ r.id }}</a></td>
+                <td>{{ r.alias }}</br></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No employees.</p>
+{% endif %}

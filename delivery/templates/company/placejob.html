@@ -1,0 +1,8 @@
+<h1>Place Job</h1>
+{% block content %}
+  <form action="" method="post"> {% csrf_token %}
+      {{ job.as_p }}
+      <input type="submit" value="Place Job">
+  </form>
+{% endblock %}
+<p>Powered by Tachyon Systems</p>
